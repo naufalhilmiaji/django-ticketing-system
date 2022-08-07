@@ -12,8 +12,8 @@ class Order(models.Model):
     is_verified = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
-    ordered_by = models.OneToOneField('users.User', related_name='ordered_by', on_delete=models.CASCADE)
-    trip = models.OneToOneField('trips.Trip', related_name='trip', on_delete=models.CASCADE)
+    ordered_by = models.ForeignKey('users.User', related_name='ordered_by', on_delete=models.CASCADE)
+    trip = models.ForeignKey('trips.Trip', related_name='trip', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f'Pesanan atas nama {self.name} oleh {self.ordered_by}.'

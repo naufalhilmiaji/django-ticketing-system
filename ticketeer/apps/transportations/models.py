@@ -11,4 +11,4 @@ class Transportation(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
-        return f'{self.name} ({self.type})'
+        return f'{self.name}'

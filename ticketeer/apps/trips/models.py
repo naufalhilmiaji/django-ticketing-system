@@ -13,8 +13,10 @@ class Trip(models.Model):
     price = models.FloatField(validators=[MinValueValidator(0)])
     available_seats = models.IntegerField(null=True)
     created = models.DateTimeField(auto_now_add=True)
+    total_passengers = models.IntegerField(null=False, default=0)
 
-    transportations = models.ManyToManyField('transportations.Transportation', related_name="trips")
+    transportation = models.ForeignKey('transportations.Transportation', related_name="transportation",
+                                        on_delete=models.CASCADE)
 
 
     class Meta:
@@ -22,7 +24,7 @@ class Trip(models.Model):
 
 
     def __str__(self) -> str:
-        return f'{self.origin} - {self.destination}'
+        return f'{self.transportation} ({self.origin} - {self.destination})'
     
     def get_time_diff(self) -> 'Trip':
         return self.departure_time - self.eta
