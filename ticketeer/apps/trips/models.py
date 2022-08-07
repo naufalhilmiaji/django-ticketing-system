@@ -1,8 +1,7 @@
 from typing import Optional
-from django.db import models
-from django.utils import timezone
 
-from ticketeer.apps.transportations.models import Transportation
+from django.core.validators import MinValueValidator
+from django.db import models
 
 
 class Trip(models.Model):
@@ -11,10 +10,11 @@ class Trip(models.Model):
     departure_time = models.TimeField(blank=True, null=True)
     arrival_time = models.TimeField(blank=True, null=True)
     eta = models.TimeField(blank=True, null=True)
+    price = models.FloatField(validators=[MinValueValidator(0)])
     available_seats = models.IntegerField(null=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    transportations = models.ManyToManyField(Transportation, related_name="trips")
+    transportations = models.ManyToManyField('transportations.Transportation', related_name="trips")
 
 
     class Meta:

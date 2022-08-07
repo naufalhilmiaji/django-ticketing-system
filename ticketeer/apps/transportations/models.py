@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 from ticketeer.constants import TRANSPORTATION_TYPE
 
