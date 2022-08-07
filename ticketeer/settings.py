@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'ticketeer.apps',
+    'ticketeer.apps.orders',
     'ticketeer.apps.users',
     'ticketeer.apps.transportations',
     'ticketeer.apps.trips',
