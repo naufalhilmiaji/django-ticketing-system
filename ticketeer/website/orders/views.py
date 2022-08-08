@@ -44,7 +44,7 @@ def search_trip(request: HttpRequest) -> JsonResponse:
     else:
         response = {
             'status_code': 400,
-            'message': 'Tidak Tersedia.'
+            'message': 'Data Tidak Tersedia.'
         }
 
         return JsonResponse(response)
