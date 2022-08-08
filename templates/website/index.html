@@ -38,7 +38,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
+        <div class="row py-md-3">
             <div class="col-lg-4 mb-md-0 mb-2 d-flex justify-content-center">
                 <div class="card p-3 bg-primary" style="width: 18rem;">
                     <img src="{% static 'img/bus.png' %}" class="card-img-top mx-auto" alt="...">
@@ -54,6 +54,18 @@
                     <img src="{% static 'img/train.png' %}" class="card-img-top mx-auto" alt="...">
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="search-section bg-primary">
+    <div class="container">
+        <div class="row p-5">
+            <form method="POST">
+                {% csrf_token %}
+                {{ search_form }}
+                <button class='btn btn-primary'>Cari</button>
+            </form>
         </div>
     </div>
 </section>

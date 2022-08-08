@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container masthead">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-md-5 bg-primary">
+                <h1 class='text-center text-light'>Halaman Login</h1>
+                <div class="card p-md-5">
+                    {% include 'website/form.html' %}
+                    <p class="mt-3">Belum punya akun? <a href="{% url 'website:register' %}">Daftar</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

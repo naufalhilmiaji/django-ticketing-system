@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from django import forms
 from django.contrib.auth.password_validation import validate_password
@@ -7,11 +7,11 @@ from ticketeer.apps.users.models import User
 
 
 class LoginForm(forms.Form):
-    identifier = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email Anda'}))
+    identifier = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'placeholder': 'Email Anda'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password Anda'}))
 
     def authenticate(self) -> Optional[User]:
-        identifier = self.cleaned_data.get('identified')
+        identifier = self.cleaned_data.get('identifier')
         password = self.cleaned_data.get('password')
         
         try:
@@ -25,10 +25,10 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nama Lengkap'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email Anda'}))
-    password = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput(), label='Konfirmasi Password')
+    name = forms.CharField(label='Nama', widget=forms.TextInput(attrs={'placeholder': 'Nama Lengkap'}))
+    email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'placeholder': 'Email Anda'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Konfirmasi Password', widget=forms.PasswordInput())
     
     def clean_password(self) -> str:
         password = self.cleaned_data.get('password')

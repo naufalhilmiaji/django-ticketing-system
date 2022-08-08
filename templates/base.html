@@ -31,9 +31,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    {% comment %} <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="#portfolio">Portfolio</a></li> {% endcomment %}
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="#about">Tentang Kami</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="#">Login</a></li>
+                    {% if request.path == '/' %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="#about">Tentang Kami</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="{% url 'website:logout' %}">Logout</a></li>
+                        {% else %}
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="{% url 'website:login' %}">Login</a></li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
