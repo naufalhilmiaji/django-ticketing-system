@@ -99,7 +99,6 @@
                 success: function (response) {
                     console.log(response)
                     if (response.status_code == 200) {
-                        console.log('Sukses')
                         
                         $('#q_result').remove()
                         $('#search_container').append(`
@@ -108,15 +107,16 @@
                         `)
 
                         $.each(response.data, function(key, dt) {
-                            $('#q_result').append(`<div class="col">
-                                <div class="card mb-3">
-                                    <h5 class="card-header">`+ dt.transportation__name +`</h5>
-                                    <div class="card-body">
-                                        <h5 class="card-title">`+ dt.origin +` - `+ dt.destination +`</h5>
-                                        <p class="card-text">Jadwal: `+ dt.departure_date +` (`+ dt.departure_time +`)</p>
-                                        <p class="card-text">Harga Tiket: Rp`+ dt.price +`</p>
-                                        <small>Slot Penumpang: `+ dt.available_seats +`</small>
-                                        <a href="#" class="btn btn-primary">Pesan</a>
+                            $('#q_result').append(`
+                                <div class="col-md-6">
+                                    <div class="card mb-3">
+                                        <h5 class="card-header">`+ dt.transportation__name +`</h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">`+ dt.origin +` - `+ dt.destination +`</h5>
+                                            <p class="card-text">Jadwal: `+ dt.departure_date +` (`+ dt.departure_time +`)</p>
+                                            <p class="card-text">Harga Tiket: Rp`+ dt.price +`</p>
+                                            <small>Slot Penumpang: `+ dt.available_seats +`</small>
+                                            <a href="#" class="btn btn-primary">Pesan</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,20 @@
                         });
 
                     } else {
-                        console.log('Gagal.')
+                        $('#q_result').remove()
+                        $('#search_container').append(`
+                            <div class="row p-5" id='q_result'>
+                            </div>
+                        `)
+                        $('#q_result').append(`
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">`+ response.message +`</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
                     }
                 }
             })
