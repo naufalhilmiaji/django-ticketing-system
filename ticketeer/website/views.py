@@ -10,20 +10,7 @@ from .forms import LoginForm, RegistrationForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    form = SearchForm(data=request.POST or None)
-    
-    if form.is_valid():
-        origin = form.data.get('origin')
-        destination = form.data.get('destination')
-        transportation = form.data.get('transportation')
-        
-        trip = Trip.objects.filter(Q(origin=origin) & Q(destination=destination) & Q(transportation=transportation))
-        if trip:
-            print(trip)
-            return redirect('website:index')
-        else:
-            print('Tidak tersedia.')
-        
+    form = SearchForm(data=request.POST or None, trip=Trip)        
     
     context = {
         'title': 'Ticketeer - Index',

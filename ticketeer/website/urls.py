@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include,path
 from .views import index, login, logout, register
 
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('register/', register, name='register'),
+    path('orders/', include('ticketeer.website.orders.urls')),
 ]

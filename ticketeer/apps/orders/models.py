@@ -1,4 +1,5 @@
 import uuid
+
 from django.db import models
 
 from ticketeer.constants import ORDER_STATUS
@@ -8,6 +9,7 @@ class Order(models.Model):
     booking_code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=255)
     total = models.FloatField()
+    order_date = models.DateTimeField()
     status = models.PositiveSmallIntegerField(choices=ORDER_STATUS.choices, default=ORDER_STATUS.dibuat)
     is_verified = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

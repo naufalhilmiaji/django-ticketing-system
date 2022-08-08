@@ -7,8 +7,8 @@ from django.db import models
 class Trip(models.Model):
     origin = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
+    departure_date = models.DateField(blank=True, null=True)
     departure_time = models.TimeField(blank=True, null=True)
-    arrival_time = models.TimeField(blank=True, null=True)
     eta = models.TimeField(blank=True, null=True)
     price = models.FloatField(validators=[MinValueValidator(0)])
     available_seats = models.IntegerField(null=True)

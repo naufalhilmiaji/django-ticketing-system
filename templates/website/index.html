@@ -59,15 +59,78 @@
 </section>
 
 <section class="search-section bg-primary">
-    <div class="container">
+    <div class="container" id='search_container'>
         <div class="row p-5">
-            <form method="POST">
+            {% comment %} <form method="POST" action="{% url 'website:orders:search_trip' %}"> {% endcomment %}
                 {% csrf_token %}
                 {{ search_form }}
-                <button class='btn btn-primary'>Cari</button>
-            </form>
+                
+                <button type="submit" class="btn btn-secondary" id="searchTripBtn">Submit</button>
+            {% comment %} </form> {% endcomment %}
         </div>
     </div>
 </section>
 
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    
+    $(document).ready(function () {
+
+        $(document).on('click', '#searchTripBtn', function(e) {
+            const post_minute = $('#id_date_time_minute').val()
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'website:orders:search_trip' %}",
+                data: {
+                    origin: $('#id_origin').val(),
+                    destination: $('#id_destination').val(),
+                    transportation: $('#id_transportation').val(),
+                    day: $('#id_date_time_day').val(),
+                    month: $('#id_date_time_month').val(),
+                    year: $('#id_date_time_year').val(),
+                    hour: $('#id_date_time_hour').val(),
+                    minute: (post_minute == 0) ? post_minute + '0' : post_minute,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                    if (response.status_code == 200) {
+                        console.log('Sukses')
+                        
+                        $('#q_result').remove()
+                        $('#search_container').append(`
+                            <div class="row p-5" id='q_result'>
+                            </div>
+                        `)
+
+                        $.each(response.data, function(key, dt) {
+                            $('#q_result').append(`<div class="col">
+                                <div class="card mb-3">
+                                    <h5 class="card-header">`+ dt.transportation__name +`</h5>
+                                    <div class="card-body">
+                                        <h5 class="card-title">`+ dt.origin +` - `+ dt.destination +`</h5>
+                                        <p class="card-text">Jadwal: `+ dt.departure_date +` (`+ dt.departure_time +`)</p>
+                                        <p class="card-text">Harga Tiket: Rp`+ dt.price +`</p>
+                                        <small>Slot Penumpang: `+ dt.available_seats +`</small>
+                                        <a href="#" class="btn btn-primary">Pesan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+                        });
+
+                    } else {
+                        console.log('Gagal.')
+                    }
+                }
+            })
+        });
+
+    })
+
+</script>
+{% endblock  %}

@@ -4,8 +4,8 @@ from .models import Order
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('booking_code', 'name', 'total', 'status', 'created',
-                    'is_verified', 'ordered_by')
+    list_display = ('booking_code', 'name', 'total', 'order_date', 'status',
+                    'created', 'is_verified', 'ordered_by')
     search_fields = ('name',)
     
     def save_model(self, request, obj, form, change) -> None:

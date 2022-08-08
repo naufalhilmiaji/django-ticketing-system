@@ -4,8 +4,8 @@ from .models import Trip
 
 
 class TripAdmin(admin.ModelAdmin):
-    list_display = ('origin', 'destination', 'departure_time', 'arrival_time',
-                    'created')
+    list_display = ('origin', 'destination', 'departure_time',
+                    'departure_date', 'created')
     search_fields = ('origin', 'destination',)
 
 admin.site.register(Trip, TripAdmin)
